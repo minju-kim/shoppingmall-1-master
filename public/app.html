@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" data-ng-app="shoppingMall">
+<head>
+    <meta charset="UTF-8">
+    <title>쇼핑몰</title>
+    <link href="angularjs/bootstrap.css" rel="stylesheet"/>
+    <link href="angularjs/bootstrap-theme.css" rel="stylesheet"/>
+    <script src="angularjs/angular.js"></script>
+    <script>
+        angular.module('shoppingMall', ['customFilters']);//두번째 인자를 주면 모듈을 새로 만든다.
+        //두번째 인자에 모듈을 넣으면 의존성 모듈이 되어서 접근할 수 있다.
+    </script>
+    <script src="angularjs/controllers/shoppingmall.js"></script>
+    <script src="angularjs/filters/customfilters.js"></script>
+    <script src="angularjs/controllers/productlist.js"></script>
+</head>
+<body ng-controller="shoppingMallController">
+    <div class="navbar navbar-inverse">
+        <a class="navbar-brand" href="#">디딤돌 쇼핑몰</a>
+    </div>
+    <div class="alert alert-danger" ng-show="data.error"> <!--에러가 발생했을 때만 보임-->
+        오류 ({{data.error.status}}) 발생. 상품 데이터를 로딩할 수 없습니다.
+        <a href="app.html" class="alert-link">다시 시도해 주세요.</a>
+    </div>
+    <ng-include src="'angularjs/views/productlist.html'"></ng-include>
+</body>
+</html>
