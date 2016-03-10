@@ -1,7 +1,7 @@
 angular.module('shoppingMall')
 	.constant('productListActiveClass', 'btn-primary')
 	.constant('productListPageCount', 3)
-	.controller('productListController', function($scope, productListActiveClass, productListPageCount) { //constant를 쓰려면 반드시 콜백함수 인자에 넣어야 한다.
+	.controller('productListController', function($scope, productListActiveClass, productListPageCount, cart) { //constant를 쓰려면 반드시 콜백함수 인자에 넣어야 한다.
 
 		var currentCategory = undefined;
 
@@ -29,4 +29,7 @@ angular.module('shoppingMall')
 			return $scope.currentPage === page ? productListActiveClass: "";
 		}
 
+        $scope.addToCart = function(product){
+            cart.addProduct(product.id, product.name, product.price);
+        }
 	});

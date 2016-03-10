@@ -1,0 +1,18 @@
+<style>
+    .navibar-right{
+        float: right !important;
+        margin-right: 5px;
+    }
+    .navbar-text{
+        margin-right: 10px;
+    }
+</style>
+
+<div class="navibar-right">
+    <div class="navbar-text">
+        <i class="fa fa-shopping-cart fa-lg"></i> :
+        {{itemCount()}} 개 항목, {{totalPrice() | currency:"&#x20A9":0}}
+    </div>
+    <!--버튼 만들 때 button 태그보다는 a태그를 쓰는 것이 유리하다. -->
+    <a class="btn btn-default navbar-btn" href="#/checkout">체크아웃</a>
+</div>

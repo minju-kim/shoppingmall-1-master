@@ -5,23 +5,44 @@
     <title>쇼핑몰</title>
     <link href="angularjs/bootstrap.css" rel="stylesheet"/>
     <link href="angularjs/bootstrap-theme.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="angularjs/angular.js"></script>
     <script>
-        angular.module('shoppingMall', ['customFilters']);//두번째 인자를 주면 모듈을 새로 만든다.
-        //두번째 인자에 모듈을 넣으면 의존성 모듈이 되어서 접근할 수 있다.
+        angular.module('shoppingMall', ['customFilters', 'cart', 'ngRoute'])//두번째 인자를 주면 모듈을 새로 만든다.
+                //두번째 인자에 모듈을 넣으면 의존성 모듈이 되어서 접근할 수 있다.
+                .config(function($routeProvider) {
+                    $routeProvider.when('/placeorder', {
+                        templateUrl: "angularjs/views/placeorder.html"
+                    });
+                    $routeProvider.when('/checkout', {
+                        templateUrl: "angularjs/views/checkoutsummary.html"
+                    });
+                    $routeProvider.when('/products', {
+                        templateUrl: "angularjs/views/productlist.html"
+                    });
+                    $routeProvider.otherwise({
+                        templateUrl: "angularjs/views/productlist.html"
+                    });
+                });
+
     </script>
     <script src="angularjs/controllers/shoppingmall.js"></script>
     <script src="angularjs/filters/customfilters.js"></script>
     <script src="angularjs/controllers/productlist.js"></script>
+    <script src="angularjs/components/cart/cart.js"></script>
+    <script src="angularjs/ngmodules/angular-route.js"></script>
+    <script src="angularjs/controllers/checkoutsummary.js"></script>
 </head>
 <body ng-controller="shoppingMallController">
     <div class="navbar navbar-inverse">
         <a class="navbar-brand" href="#">디딤돌 쇼핑몰</a>
+        <cart-summary /><!--cart.js의 cartSummary directive인데, html에서는 대소문자 구분을 못하기 때문에 하이픈+소문자를 이용해 표현한다. -->
     </div>
     <div class="alert alert-danger" ng-show="data.error"> <!--에러가 발생했을 때만 보임-->
         오류 ({{data.error.status}}) 발생. 상품 데이터를 로딩할 수 없습니다.
         <a href="app.html" class="alert-link">다시 시도해 주세요.</a>
     </div>
-    <ng-include src="'angularjs/views/productlist.html'"></ng-include>
+    <!-- 정적인 뷰 구성--><!--<ng-include src="'angularjs/views/productlist.html'"></ng-include>-->
+    <ng-view /><!-- 동적인 뷰 구성.  라우팅 관련 처리를 하는 angular-route가 필요하다.-->
 </body>
 </html>
